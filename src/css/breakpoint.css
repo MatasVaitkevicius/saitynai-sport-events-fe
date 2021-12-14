@@ -1,0 +1,11 @@
+@media screen and (min-width: 1000px) {
+  h2 {
+    size: 50px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  h2 {
+    size: 20px;
+  }
+}
