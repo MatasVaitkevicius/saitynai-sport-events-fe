@@ -20,11 +20,9 @@ export default function ListTypes({ typesData }) {
       {typesData.types.map((element) => {
         console.log(element.name);
         return (
-          <>
           <Link to={`/types/${element.id}`}>
             <button>{element.name}</button>
           </Link>
-          </>
         );
       })}
       <nav>

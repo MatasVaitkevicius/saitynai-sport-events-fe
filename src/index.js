@@ -9,8 +9,6 @@ import reducer from "./react-redux/reducer";
 
 const initialStore = {
   apiUrl: "http://localhost:98/api/types",
-  access_token: localStorage.getItem("access_token"),
-  loggedIn: false,
 };
 
 const store = createStore(reducer, initialStore);
