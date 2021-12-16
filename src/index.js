@@ -8,18 +8,20 @@ import { Provider } from "react-redux";
 import reducer from "./react-redux/reducer";
 
 const initialStore = {
-    apiUrl: "http://18.130.184.133:98/api/types",
+  apiUrl: "http://localhost:98/api/types",
+  access_token: localStorage.getItem("access_token"),
+  loggedIn: false,
 };
 
 const store = createStore(reducer, initialStore);
 
 ReactDOM.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById("root")
+  <React.StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById("root")
 );

@@ -1,21 +1,17 @@
-import { POST_DATA } from "./actions";
+import { LOGIN_SUCCESSFUL } from "./actions";
 
 export default function reducer(state, action) {
-  if (action.type === POST_DATA) {
-    fetch(action.payload.apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: action.payload.email,
-        password: action.payload.password,
-      }),
-    }).then((element) => {
-      console.log(element);
-    });
-
-    return { ...state };
+  if (action.type === LOGIN_SUCCESSFUL) {
+    if (action.payload.access_token) {
+      localStorage.setItem("access_token", action.payload.access_token);
+      return {
+        ...state,
+        access_token: action.payload.access_token,
+        loggedIn: true,
+      };
+    } else {
+      return { ...state };
+    }
   }
   return state;
 }

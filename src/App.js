@@ -1,59 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ListTypes from "./ListTypes";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import "./css/App.css";
 import Login from "./Login";
+import ListEvents from "./ListEvents";
+import ListComments from "./ListComments";
 
-function App({ apiUrl }) {
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState({ types: [] });
-
-    useEffect(() => {
-        async function fetchData() {
-            const repsonse = await fetch("http://18.130.184.133:98/api/types");
-            const result = await repsonse.json();
-            setData({ types: result });
-            setLoading(false);
-        }
-        fetchData();
-    }, []);
-    console.log(data.types[0]);
-
-    return (
-        <>
-            <div className="App">
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route
-                        path="/types"
-                        element={loading ? "Loading..." : <ListTypes data={data} />}
-                    />
-                </Routes>
-            </div>
-        </>
-    );
+function App({ apiUrl, access_token, loggedIn, dispatch }) {
+  return (
+    <>
+      <div className="App">
+        <Routes>
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "10rem", fontSize: "100px" }}>
+                <p>Error 404 page not found.</p>
+              </main>
+            }
+          ></Route>
+          <Route
+            path="/"
+            element={
+              loggedIn ? <Navigate to="/types" /> : <Navigate to="/login" />
+            }
+          ></Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/types" element={<ListTypes />} />
+          <Route path="/types/:typeId/events" element={<ListEvents />} />
+          <Route
+            path="/types/:typeId/events/:eventId/comments"
+            element={<ListComments />}
+          />
+        </Routes>
+      </div>
+    </>
+  );
 }
 
 const mapStateToProps = (store) => {
-    const { apiUrl } = store;
-    return { apiUrl: apiUrl };
+  const { apiUrl, access_token, loggedIn } = store;
+  return { apiUrl, access_token, loggedIn };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    // const { flight_number } = ownProps;
-    return {
-        // favouriteAdd: () =>
-        //   dispatch({
-        //     type: FAVOURITE_ADD,
-        //     payload: { id: flight_number, favourited: true },
-        //   }),
-        // favouriteRemove: () =>
-        //   dispatch({
-        //     type: FAVOURITE_REMOVE,
-        //     payload: { id: flight_number, favourited: false },
-        //   }),
-    };
+  // const { flight_number } = ownProps;
+  return {
+    dispatch,
+    // favouriteAdd: () =>
+    //   dispatch({
+    //     type: FAVOURITE_ADD,
+    //     payload: { id: flight_number, favourited: true },
+    //   }),
+    // favouriteRemove: () =>
+    //   dispatch({
+    //     type: FAVOURITE_REMOVE,
+    //     payload: { id: flight_number, favourited: false },
+    //   }),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
