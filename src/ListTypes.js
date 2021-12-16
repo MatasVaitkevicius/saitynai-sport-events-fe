@@ -20,273 +20,273 @@ import Typography from "@mui/material/Typography";
 import { LoadingButton } from "@mui/lab";
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
 };
 
 function ListTypes({ access_token }) {
-  const [updateInput, setUpdateInput] = useState("");
-  const [updateModalName, setUpdateModalName] = useState("");
-  const [loadingModal, setLoadingModal] = useState("");
-  const [openUpdate, setOpenUpdate] = useState(false);
-  const [openCreate, setOpenCreate] = useState(false);
-  const [loadingUpdate, setLoadingUpdate] = useState(false);
-  const [loadingData, setLoadingData] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({ types: [] });
-  const [modalButtonState, setModalButtonState] = useState("");
-  const handleOpenCreate = () => setOpenCreate(true);
-  const handleOpenUpdate = () => setOpenUpdate(true);
+    const [updateInput, setUpdateInput] = useState("");
+    const [updateModalName, setUpdateModalName] = useState("");
+    const [loadingModal, setLoadingModal] = useState("");
+    const [openUpdate, setOpenUpdate] = useState(false);
+    const [openCreate, setOpenCreate] = useState(false);
+    const [loadingUpdate, setLoadingUpdate] = useState(false);
+    const [loadingData, setLoadingData] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState({ types: [] });
+    const [modalButtonState, setModalButtonState] = useState("");
+    const handleOpenCreate = () => setOpenCreate(true);
+    const handleOpenUpdate = () => setOpenUpdate(true);
 
-  const handleCloseUpdate = () => {
-    setOpenUpdate(false);
-  };
+    const handleCloseUpdate = () => {
+        setOpenUpdate(false);
+    };
 
-  const handleCloseCreate = () => {
-    setOpenCreate(false);
-  };
+    const handleCloseCreate = () => {
+        setOpenCreate(false);
+    };
 
-  function createType() {
-    async function createType() {
-      setLoadingModal(true);
-      const response = await fetch(`http://localhost:98/api/types`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-        body: JSON.stringify({
-          name: updateModalName,
-        }),
-      });
-      const result = await response.json();
-      setLoadingModal(false);
-      setOpenCreate(false);
-      if (result.message) {
-        alert(result.message);
-      }
-      fetchData();
+    function createType() {
+        async function createType() {
+            setLoadingModal(true);
+            const response = await fetch(`http://18.130.184.133:98/api/types`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${access_token}`,
+                },
+                body: JSON.stringify({
+                    name: updateModalName,
+                }),
+            });
+            const result = await response.json();
+            setLoadingModal(false);
+            setOpenCreate(false);
+            if (result.message) {
+                alert(result.message);
+            }
+            fetchData();
+        }
+        createType();
     }
-    createType();
-  }
 
-  function handleDelete(id) {
-    async function deleteType() {
-      setLoading(true);
-      await fetch(`http://localhost:98/api/types/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
-      setLoading(false);
-      await fetchData();
+    function handleDelete(id) {
+        async function deleteType() {
+            setLoading(true);
+            await fetch(`http://18.130.184.133:98/api/types/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            setLoading(false);
+            await fetchData();
+        }
+        deleteType();
     }
-    deleteType();
-  }
 
-  function handleUpdate() {
-    async function handleUpdate() {
-      setLoadingUpdate(true);
-      await fetch(`http://localhost:98/api/types/${modalButtonState}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-        body: JSON.stringify({
-          name: updateInput,
-        }),
-      });
-      setLoadingUpdate(false);
-      setOpenUpdate(false);
-      await fetchData();
+    function handleUpdate() {
+        async function handleUpdate() {
+            setLoadingUpdate(true);
+            await fetch(`http://18.130.184.133:98/api/types/${modalButtonState}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${access_token}`,
+                },
+                body: JSON.stringify({
+                    name: updateInput,
+                }),
+            });
+            setLoadingUpdate(false);
+            setOpenUpdate(false);
+            await fetchData();
+        }
+        handleUpdate();
     }
-    handleUpdate();
-  }
 
-  async function fetchData() {
-    setLoadingData(true);
-    const repsonse = await fetch("http://localhost:98/api/types", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    });
-    const result = await repsonse.json();
-    setData({ types: result });
-    setLoadingData(false);
-  }
+    async function fetchData() {
+        setLoadingData(true);
+        const repsonse = await fetch("http://18.130.184.133:98/api/types", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${access_token}`,
+            },
+        });
+        const result = await repsonse.json();
+        setData({ types: result });
+        setLoadingData(false);
+    }
 
-  useEffect(() => {
-    setLoadingData(true);
-    fetchData();
-  }, []);
+    useEffect(() => {
+        setLoadingData(true);
+        fetchData();
+    }, []);
 
-  return (
-    <>
-      <Header></Header>
-      <div>
-        <Box m={1} pt={1}>
-          <Button variant="contained" color="success" onClick={handleOpenCreate}>
-            Create New Type
-          </Button>
-        </Box>
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          open={openCreate}
-          onClose={handleCloseCreate}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={openCreate}>
-            <Box sx={style}>
-              <Box m={2} pt={3}>
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="name"
-                  onChange={(e) => setUpdateModalName(e.target.value)}
-                />
-              </Box>
-              <Box m={2} pt={3}>
-                <Button
-                  onClick={() => {
-                    updateModalName ? createType() : alert("Name can't be empty");
-                  }}
-                  color="secondary"
-                  variant="contained"
+    return (
+        <>
+            <Header></Header>
+            <div>
+                <Box m={1} pt={1}>
+                    <Button variant="contained" color="success" onClick={handleOpenCreate}>
+                        Create New Type
+                    </Button>
+                </Box>
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    open={openCreate}
+                    onClose={handleCloseCreate}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
                 >
-                  {loadingModal ? `Creating...` : `Create`}
-                </Button>
-              </Box>
-            </Box>
-          </Fade>
-        </Modal>
-      </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 300 }} size="medium">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <Typography variant="h5">Event Type</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="h5">Created At</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="h5">Action</Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {loadingData
-              ? "Loading..."
-              : data.types.map((element) => {
-                  return (
-                    <>
-                      <TableRow
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell>
-                          <Button
-                            component={Link}
-                            to={`/types/${element.id}/events`}
-                            id={element.id}
-                            variant="outlined"
-                          >
-                            {element.name}
-                          </Button>
-                        </TableCell>
-                        <TableCell>
-                          <Typography>
-                            {new Date(element.created_at).toLocaleDateString()}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            onClick={() => handleDelete(element.id)}
-                            color="error"
-                            variant="contained"
-                          >
-                            {loading ? `Deleting...` : `Delete`}
-                          </Button>
-                          <div>
-                            <Button
-                              onClick={() => {
-                                setModalButtonState(element.id);
-                                handleOpenUpdate();
-                              }}
-                              variant="contained"
-                            >
-                              Update
-                            </Button>
-                            <Modal
-                              aria-labelledby="transition-modal-title"
-                              aria-describedby="transition-modal-description"
-                              open={openUpdate}
-                              onClose={handleCloseUpdate}
-                              closeAfterTransition
-                              BackdropComponent={Backdrop}
-                              BackdropProps={{
-                                timeout: 500,
-                              }}
-                            >
-                              <Fade in={openUpdate}>
-                                <Box sx={style}>
-                                  <Box m={2} pt={3}>
-                                    <TextField
-                                      required
-                                      id="outlined-required"
-                                      label="name"
-                                      onChange={(e) => setUpdateInput(e.target.value)}
-                                    />
-                                  </Box>
-                                  <Box m={2} pt={3}>
-                                    <Button
-                                      onClick={() => {
-                                        updateInput ? handleUpdate() : alert("Name can't be empty");
-                                      }}
-                                      color="secondary"
-                                      variant="contained"
-                                    >
-                                      {loadingUpdate ? `Updating...` : `Update`}
-                                    </Button>
-                                  </Box>
-                                </Box>
-                              </Fade>
-                            </Modal>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    </>
-                  );
-                })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Footer></Footer>
-    </>
-  );
+                    <Fade in={openCreate}>
+                        <Box sx={style}>
+                            <Box m={2} pt={3}>
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="name"
+                                    onChange={(e) => setUpdateModalName(e.target.value)}
+                                />
+                            </Box>
+                            <Box m={2} pt={3}>
+                                <Button
+                                    onClick={() => {
+                                        updateModalName ? createType() : alert("Name can't be empty");
+                                    }}
+                                    color="secondary"
+                                    variant="contained"
+                                >
+                                    {loadingModal ? `Creating...` : `Create`}
+                                </Button>
+                            </Box>
+                        </Box>
+                    </Fade>
+                </Modal>
+            </div>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 300 }} size="medium">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>
+                                <Typography variant="h5">Event Type</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="h5">Created At</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="h5">Action</Typography>
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {loadingData
+                            ? "Loading..."
+                            : data.types.map((element) => {
+                                return (
+                                    <>
+                                        <TableRow
+                                            sx={{
+                                                "&:last-child td, &:last-child th": { border: 0 },
+                                            }}
+                                        >
+                                            <TableCell>
+                                                <Button
+                                                    component={Link}
+                                                    to={`/types/${element.id}/events`}
+                                                    id={element.id}
+                                                    variant="outlined"
+                                                >
+                                                    {element.name}
+                                                </Button>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Typography>
+                                                    {new Date(element.created_at).toLocaleDateString()}
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    onClick={() => handleDelete(element.id)}
+                                                    color="error"
+                                                    variant="contained"
+                                                >
+                                                    {loading ? `Deleting...` : `Delete`}
+                                                </Button>
+                                                <div>
+                                                    <Button
+                                                        onClick={() => {
+                                                            setModalButtonState(element.id);
+                                                            handleOpenUpdate();
+                                                        }}
+                                                        variant="contained"
+                                                    >
+                                                        Update
+                                                    </Button>
+                                                    <Modal
+                                                        aria-labelledby="transition-modal-title"
+                                                        aria-describedby="transition-modal-description"
+                                                        open={openUpdate}
+                                                        onClose={handleCloseUpdate}
+                                                        closeAfterTransition
+                                                        BackdropComponent={Backdrop}
+                                                        BackdropProps={{
+                                                            timeout: 500,
+                                                        }}
+                                                    >
+                                                        <Fade in={openUpdate}>
+                                                            <Box sx={style}>
+                                                                <Box m={2} pt={3}>
+                                                                    <TextField
+                                                                        required
+                                                                        id="outlined-required"
+                                                                        label="name"
+                                                                        onChange={(e) => setUpdateInput(e.target.value)}
+                                                                    />
+                                                                </Box>
+                                                                <Box m={2} pt={3}>
+                                                                    <Button
+                                                                        onClick={() => {
+                                                                            updateInput ? handleUpdate() : alert("Name can't be empty");
+                                                                        }}
+                                                                        color="secondary"
+                                                                        variant="contained"
+                                                                    >
+                                                                        {loadingUpdate ? `Updating...` : `Update`}
+                                                                    </Button>
+                                                                </Box>
+                                                            </Box>
+                                                        </Fade>
+                                                    </Modal>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    </>
+                                );
+                            })}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <Footer></Footer>
+        </>
+    );
 }
 
 const mapStateToProps = (state) => {
-  const { access_token } = state;
-  return { access_token };
+    const { access_token } = state;
+    return { access_token };
 };
 
 export default connect(mapStateToProps, null)(ListTypes);
