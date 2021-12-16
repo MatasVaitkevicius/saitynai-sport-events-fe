@@ -23,7 +23,7 @@ function Login({ dispatch }) {
             payload: {
                 email: email,
                 password: password,
-                apiUrl: "http://localhost:98/api/login",
+                apiUrl: "http://18.130.184.133:98/api/login",
             },
         });
     };

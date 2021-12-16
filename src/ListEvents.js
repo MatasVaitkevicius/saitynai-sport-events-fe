@@ -64,7 +64,7 @@ function ListEvents({ access_token }) {
     function createEvent() {
         async function handleUpdate() {
             setLoadingModal(true);
-            await fetch(`http://localhost:98/api/types/${typeId}/events`, {
+            await fetch(`http://18.130.184.133:98/api/types/${typeId}/events`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -85,7 +85,7 @@ function ListEvents({ access_token }) {
     function handleDelete(id) {
         async function deleteType() {
             setLoading(true);
-            await fetch(`http://localhost:98/api/types/${typeId}/events/${id}`, {
+            await fetch(`http://18.130.184.133:98/api/types/${typeId}/events/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -103,7 +103,7 @@ function ListEvents({ access_token }) {
     function handleUpdate(id) {
         async function handleUpdate() {
             setLoadingUpdate(true);
-            await fetch(`http://localhost:98/api/types/${typeId}/events/${id}`, {
+            await fetch(`http://18.130.184.133:98/api/types/${typeId}/events/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -124,7 +124,7 @@ function ListEvents({ access_token }) {
     async function fetchData() {
         console.log(typeId);
         setLoadingData(true);
-        const repsonse = await fetch(`http://localhost:98/api/types/${typeId}/events`, {
+        const repsonse = await fetch(`http://18.130.184.133:98/api/types/${typeId}/events`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${access_token}`,
