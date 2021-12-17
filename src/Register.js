@@ -38,7 +38,7 @@ export default function TransitionsModal(props) {
 
         async function handleRegister() {
             setLoadingRegister(true);
-            const response = await fetch("http://18.130.184.133:98/api/register", {
+            const response = await fetch("http://13.40.129.31:98/api/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

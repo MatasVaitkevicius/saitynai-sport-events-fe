@@ -56,7 +56,7 @@ function ListTypes({ access_token }) {
     function createType() {
         async function createType() {
             setLoadingModal(true);
-            const response = await fetch(`http://18.130.184.133:98/api/types`, {
+            const response = await fetch(`http://13.40.129.31:98/api/types`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -80,7 +80,7 @@ function ListTypes({ access_token }) {
     function handleDelete(id) {
         async function deleteType() {
             setLoading(true);
-            await fetch(`http://18.130.184.133:98/api/types/${id}`, {
+            await fetch(`http://13.40.129.31:98/api/types/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -96,7 +96,7 @@ function ListTypes({ access_token }) {
     function handleUpdate() {
         async function handleUpdate() {
             setLoadingUpdate(true);
-            await fetch(`http://18.130.184.133:98/api/types/${modalButtonState}`, {
+            await fetch(`http://13.40.129.31:98/api/types/${modalButtonState}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -115,7 +115,7 @@ function ListTypes({ access_token }) {
 
     async function fetchData() {
         setLoadingData(true);
-        const repsonse = await fetch("http://18.130.184.133:98/api/types", {
+        const repsonse = await fetch("http://13.40.129.31:98/api/types", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${access_token}`,

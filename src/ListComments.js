@@ -63,7 +63,7 @@ function ListComments({ access_token }) {
     function createComment() {
         async function handleUpdate() {
             setLoadingModal(true);
-            await fetch(`http://18.130.184.133:98/api/types/${typeId}/events/${eventId}/comments`, {
+            await fetch(`http://13.40.129.31:98/api/types/${typeId}/events/${eventId}/comments`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -83,7 +83,7 @@ function ListComments({ access_token }) {
     function handleDelete(id) {
         async function deleteType() {
             setLoading(true);
-            await fetch(`http://18.130.184.133:98/api/types/${typeId}/events/${eventId}/comments/${id}`, {
+            await fetch(`http://13.40.129.31:98/api/types/${typeId}/events/${eventId}/comments/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -100,7 +100,7 @@ function ListComments({ access_token }) {
         async function handleUpdate() {
             setLoadingUpdate(true);
             await fetch(
-                `http://18.130.184.133:98/api/types/${typeId}/events/${eventId}/comments/${modalUpdateButton}`,
+                `http://13.40.129.31:98/api/types/${typeId}/events/${eventId}/comments/${modalUpdateButton}`,
                 {
                     method: "PUT",
                     headers: {
@@ -122,7 +122,7 @@ function ListComments({ access_token }) {
     async function fetchData() {
         setLoadingData(true);
         const repsonse = await fetch(
-            `http://18.130.184.133:98/api/types/${typeId}/events/${eventId}/comments`,
+            `http://13.40.129.31:98/api/types/${typeId}/events/${eventId}/comments`,
             {
                 method: "GET",
                 headers: {

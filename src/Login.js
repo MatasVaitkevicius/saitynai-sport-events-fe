@@ -24,7 +24,7 @@ function Login({ access_token, loggedIn, dispatch }) {
 
         async function postLogin() {
             setLoading(true);
-            const response = await fetch("http://18.130.184.133:98/api/login", {
+            const response = await fetch("http://13.40.129.31:98/api/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
